@@ -7,10 +7,11 @@ todo = Blueprint('todo', __name__, url_prefix='/todo')
 
 @todo.route('/', methods=['POST','GET'])
 def index():
+    s = ""
     for item in pyodbc.drivers():
         print(item)
-
-    return jsonify({"khanh":"ahihi"})
+        s += str(item) +" \n"
+    return jsonify({"khanh":"ahihi", "driver":s})
 
 
 
