@@ -4,9 +4,11 @@ import urllib
 
 # Connect to DB
 params = urllib.parse.quote_plus("DRIVER={SQL Server};"
-                                 "SERVER=DESKTOP-03Q1OAO;"
-                                 "DATABASE=tay_du_ky;"
-                                 "Trusted_Connection=yes")
+                                 "SERVER=58.186.23.68;"
+                                 "DATABASE=Khanh_PRM;"
+                                 "UID=htd0910;"
+                                 "PWD=123456"
+                                 )
 
 
 app = Flask(__name__)
