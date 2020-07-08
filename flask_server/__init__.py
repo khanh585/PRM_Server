@@ -19,6 +19,7 @@ app.config['SECRET_KEY'] = 'khanh585'
 db = SQLAlchemy(app)
 
 
+
 from flask_server.admin.route import todo
 from flask_server.admin.tool import tool
 from flask_server.admin.actor import actor
