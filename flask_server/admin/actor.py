@@ -16,7 +16,7 @@ def getactor():
         return jsonify(actors), 200 
     except Exception as e:
         print(e)
-        return e, 500
+        return e.__str__, 500
 
 @actor.route('/<int:id>', methods=['GET'])
 def getactorById(id):
