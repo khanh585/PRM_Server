@@ -1,3 +1,5 @@
+unixodbc
+unixodbc-dev
 astroid==2.4.2
 certifi==2020.6.20
 chardet==3.0.4
@@ -17,7 +19,6 @@ mccabe==0.6.1
 Naked==0.1.31
 PyJWT==1.7.1
 pylint==2.5.3
-unixodbc-dev 
 pyodbc==4.0.30
 PyYAML==5.3.1
 requests==2.24.0
