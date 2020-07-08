@@ -1,2 +1,2 @@
 worker: gunicorn venv:venv\Scripts\activate
-web: app:app 
+web: gunicorn app:app
