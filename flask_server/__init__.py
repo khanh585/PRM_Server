@@ -10,9 +10,9 @@ params = urllib.parse.quote_plus("DRIVER={ODBC Driver 13 for SQL Server};"
                                  "PWD=123456"
                                  )
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect={}".format(params)
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pymssql://username:password@hostname[\\SQLEXPRESS2008]/dbname"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SECRET_KEY'] = 'khanh585'
