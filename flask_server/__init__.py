@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import urllib
 
 # Connect to DB
-params = urllib.parse.quote_plus("DRIVER={SQL Server};"
+params = urllib.parse.quote_plus("DRIVER={ODBC Driver 13 for SQL Server};"
                                  "SERVER=58.186.23.68;"
                                  "DATABASE=Khanh_PRM;"
                                  "UID=htd0910;"
