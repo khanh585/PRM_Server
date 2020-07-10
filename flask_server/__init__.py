@@ -4,7 +4,7 @@ import urllib
 
 # Connect to DB
 params = urllib.parse.quote_plus("DRIVER={ODBC Driver 17 for SQL Server};"
-                                 "SERVER=58.186.23.68;"
+                                 "SERVER=htd1999.ddns.net;"
                                  "DATABASE=Khanh_PRM;"
                                  "UID=htd0910;"
                                  "PWD=123456"
