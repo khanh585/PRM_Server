@@ -12,8 +12,13 @@ tool = Blueprint('tool', __name__, url_prefix='/admin/tool')
 @tool.route('/', methods=['GET'])
 def getTool():
     try:
-        tools = [tool.serialize() for tool in ToolDAO.dbRead()]
-        return jsonify(tools), 200 
+        print('lenght:  ' , len(app.config['LIST_TOOL']))
+        result = None
+        if(len(app.config['LIST_TOOL']) != 0):
+            result = app.config['LIST_TOOL']
+        else:
+            result = [tool.serialize() for tool in ToolDAO.dbRead()]
+        return jsonify(result), 200 
     except Exception as e:
         print(e)
         return "Server error", 500
@@ -39,6 +44,7 @@ def index():
         new_tool = ToolDTO(**data)
         result = ToolDAO.dbCreate(new_tool)
         if result > 0:
+            app.config['LIST_TOOL'] = [tool.serialize() for tool in ToolDAO.dbRead()]
             return jsonify(result), 201
         return "Can't create", 403
     except Exception as e:
@@ -50,6 +56,7 @@ def delete(id):
     try:
         result = ToolDAO.dbDelete(id)
         if result > 0:
+            app.config['LIST_TOOL'] = [tool.serialize() for tool in ToolDAO.dbRead()]
             return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
@@ -66,6 +73,7 @@ def update(id):
         data = request.get_json()
         result = ToolDAO.dbUpdate(id,ToolDTO(**data))
         if result > 0:
+            app.config['LIST_TOOL'] = [tool.serialize() for tool in ToolDAO.dbRead()]
             return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
