@@ -8,6 +8,7 @@ class ToolDTO(db.Model):
     description = db.Column(db.String(500), nullable = True)
     quantity = db.Column(db.Integer, default = 0)
     status = db.Column(db.String(20), nullable = True)
+    is_deleted = db.Column(db.Boolean(), default = 0)
 
     def serialize(self):
         return {
@@ -16,7 +17,8 @@ class ToolDTO(db.Model):
             "image": self.image,
             "description": self.description,
             "quantity": self.quantity,
-            "status": self.status
+            "status": self.status,
+            "is_deleted": self.is_deleted,
         }
     
     def merge(self,newdata):

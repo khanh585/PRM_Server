@@ -12,6 +12,7 @@ class ActorDTO(db.Model):
     email = db.Column(db.String(50), nullable = False)
     password = db.Column(db.String(20), nullable = False)
     role = db.Column(db.String(5), nullable = False, default = 'actor')
+    is_deleted = db.Column(db.Boolean(), default = False)
     persona = db.relationship(PersonaDTO,  secondary='character')
     
     def serialize(self):
