@@ -35,7 +35,7 @@ def login():
 
 def verify(role):
     try:
-        token = request.headers['Authentication']
+        token = request.headers['Authorization']
         decode =  jwt.decode(token, secret_key, algorithms=['HS256'])
         # check exp
         exp = decode["exp"]
@@ -46,8 +46,6 @@ def verify(role):
         # check role
         check_role = decode["role"] in role
 
-        # check email and role in DB
-        # check_email_role = ActorDAO.dbCheckEmailRole(decode["email"], decode["role"])
 
         return check_exp and check_role  # and check_email_role
     except Exception as e:
