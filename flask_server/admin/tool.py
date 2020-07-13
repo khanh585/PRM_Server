@@ -14,8 +14,7 @@ ROLE_ACTOR = 'actor'
 @tool.route('/', methods=['GET'])
 def getTool():
     try:
-        if not verify([ROLE_ADMIN]):
-            return "Unauthorized", 401
+       
         result = None
         if(len(app.config['LIST_TOOL']) != 0):
             result = app.config['LIST_TOOL']
@@ -31,8 +30,7 @@ def getTool():
 @tool.route('/<int:id>', methods=['GET'])
 def getToolById(id):
     try:
-        if not verify([ROLE_ADMIN, ROLE_ACTOR]):
-            return "Unauthorized", 401
+        
         tool = ToolDAO.dbGet(id)
         if tool:
             return jsonify(tool.serialize()), 200
@@ -47,8 +45,7 @@ def index():
     if not request.is_json:
         return "Bad Request", 403
     try:
-        if not verify([ROLE_ADMIN]):
-            return "Unauthorized", 401
+        
         data = request.get_json()
         new_tool = ToolDTO(**data)
         result = ToolDAO.dbCreate(new_tool)
@@ -63,8 +60,7 @@ def index():
 @tool.route('/<int:id>', methods=['DELETE'])
 def delete(id):
     try:
-        if not verify([ROLE_ADMIN]):
-            return "Unauthorized", 401
+       
         result = ToolDAO.dbDelete(id)
         if result > 0:
             app.config['LIST_TOOL'] = [tool.serialize() for tool in ToolDAO.dbRead()]
@@ -81,8 +77,7 @@ def update(id):
     if not request.is_json:
         return "Bad Request", 403
     try:
-        if not verify([ROLE_ADMIN]):
-            return "Unauthorized", 401
+       
         data = request.get_json()
         result = ToolDAO.dbUpdate(id,ToolDTO(**data))
         if result > 0:
