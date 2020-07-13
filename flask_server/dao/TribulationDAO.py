@@ -3,7 +3,7 @@ from flask_server.dto.TribulationDTO import TribulationDTO
 
 
 def dbRead():
-    return TribulationDTO.query.order_by(TribulationDTO.name).all()
+    return TribulationDTO.query.filter(TribulationDTO.is_deleted == False).order_by(TribulationDTO.name).all()
 
 def dbGet(tribulation_id):
     return TribulationDTO.query.get(tribulation_id)
@@ -34,7 +34,7 @@ def dbUpdate(id,data):
 def dbDelete(id):
     try:
         tribulation_to_delete = TribulationDTO.query.get_or_404(id)
-        db.session.delete(tribulation_to_delete)
+        tribulation_to_delete.is_deleted = True
         db.session.commit()
         return id
     except Exception as e:

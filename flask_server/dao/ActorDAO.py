@@ -3,7 +3,7 @@ from flask_server.dto.ActorDTO import ActorDTO
 
 
 def dbRead():
-    return ActorDTO.query.order_by(ActorDTO.name).all()
+    return ActorDTO.query.filter(ActorDTO.is_deleted == False).order_by(ActorDTO.name).all()
 
 def dbGet(actor_id):
     return ActorDTO.query.get(actor_id)
@@ -44,7 +44,7 @@ def dbUpdate(id,data):
 def dbDelete(id):
     try:
         actor_to_delete = ActorDTO.query.get_or_404(id)
-        db.session.delete(actor_to_delete)
+        actor_to_delete.is_deleted = True
         db.session.commit()
         return id
     except Exception as e:

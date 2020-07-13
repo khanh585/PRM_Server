@@ -16,7 +16,7 @@ class TribulationDTO(db.Model):
     url_file = db.Column(db.String(200), nullable = True)
     actor = db.relationship(ActorDTO, secondary='character', backref="tribulation")
     tool = db.relationship(ToolDTO, secondary='tool_for_tribulation', backref="tribulation")
-    is_deleted = db.Column(db.Boolean(), default = False)
+    is_deleted = db.Column(db.Boolean(), default = 0)
 
 
     def serialize(self):

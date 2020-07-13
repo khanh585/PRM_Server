@@ -18,7 +18,6 @@ class ToolDTO(db.Model):
             "description": self.description,
             "quantity": self.quantity,
             "status": self.status,
-            "is_deleted": self.is_deleted,
         }
     
     def merge(self,newdata):

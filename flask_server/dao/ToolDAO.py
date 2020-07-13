@@ -3,7 +3,7 @@ from flask_server.dto.ToolDTO import ToolDTO
 
 
 def dbRead():
-    return ToolDTO.query.filter(ToolDTO.is_deleted == 0).order_by(ToolDTO.tool_id).all()
+    return ToolDTO.query.filter(ToolDTO.is_deleted == False).order_by(ToolDTO.tool_id).all()
 
 def dbGet(tool_id):
     return ToolDTO.query.get(tool_id)
@@ -34,7 +34,7 @@ def dbUpdate(id,data):
 def dbDelete(id):
     try:
         tool_to_delete = ToolDTO.query.get_or_404(id)
-        tool_to_delete.is_deleted = 1
+        tool_to_delete.is_deleted = True
         db.session.commit()
         return id
     except Exception as e:
