@@ -20,7 +20,7 @@ def login():
         password = data["password"]
         user = ActorDAO.dbLogin(email, password)
         if not user:
-            return "Don't have user"
+            return "Don't have user", 401
         
         payload = {
             "email":email,
