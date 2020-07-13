@@ -3,29 +3,36 @@ from flask_server import app
 
 from flask_server.dao import ToolDAO
 from flask_server.dto.ToolDTO import ToolDTO
-
+from flask_server.util.authentication import verify
 
 tool = Blueprint('tool', __name__, url_prefix='/admin/tool')
 
+ROLE_ADMIN = 'admin'
+ROLE_ACTOR = 'actor'
 
 
 @tool.route('/', methods=['GET'])
 def getTool():
     try:
-        print('lenght:  ' , len(app.config['LIST_TOOL']))
+        if not verify([ROLE_ADMIN]):
+            return "Unauthorized", 401
         result = None
         if(len(app.config['LIST_TOOL']) != 0):
             result = app.config['LIST_TOOL']
         else:
             result = [tool.serialize() for tool in ToolDAO.dbRead()]
+            app.config['LIST_TOOL'] = result
         return jsonify(result), 200 
     except Exception as e:
         print(e)
         return "Server error", 500
+    
 
 @tool.route('/<int:id>', methods=['GET'])
 def getToolById(id):
     try:
+        if not verify([ROLE_ADMIN, ROLE_ACTOR]):
+            return "Unauthorized", 401
         tool = ToolDAO.dbGet(id)
         if tool:
             return jsonify(tool.serialize()), 200
@@ -40,6 +47,8 @@ def index():
     if not request.is_json:
         return "Bad Request", 403
     try:
+        if not verify([ROLE_ADMIN]):
+            return "Unauthorized", 401
         data = request.get_json()
         new_tool = ToolDTO(**data)
         result = ToolDAO.dbCreate(new_tool)
@@ -54,6 +63,8 @@ def index():
 @tool.route('/<int:id>', methods=['DELETE'])
 def delete(id):
     try:
+        if not verify([ROLE_ADMIN]):
+            return "Unauthorized", 401
         result = ToolDAO.dbDelete(id)
         if result > 0:
             app.config['LIST_TOOL'] = [tool.serialize() for tool in ToolDAO.dbRead()]
@@ -70,6 +81,8 @@ def update(id):
     if not request.is_json:
         return "Bad Request", 403
     try:
+        if not verify([ROLE_ADMIN]):
+            return "Unauthorized", 401
         data = request.get_json()
         result = ToolDAO.dbUpdate(id,ToolDTO(**data))
         if result > 0:
