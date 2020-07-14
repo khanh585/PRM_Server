@@ -10,7 +10,7 @@ class ActorDTO(db.Model):
     description = db.Column(db.String(500), nullable = True)
     phone = db.Column(db.String(20), nullable = False)
     email = db.Column(db.String(50), nullable = False)
-    password = db.Column(db.String(20), nullable = False)
+    password = db.Column(db.String(20) ,nullable = False, default = '123')
     role = db.Column(db.String(5), nullable = False, default = 'actor')
     is_deleted = db.Column(db.Boolean(), default = False)
     persona = db.relationship(PersonaDTO,  secondary='character')
