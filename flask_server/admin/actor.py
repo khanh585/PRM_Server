@@ -53,6 +53,7 @@ def delete(id):
             return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
+        print(e)
         if "404 Not Found" in str(e):
             return "404 Not Found", 404
         else:
@@ -69,6 +70,7 @@ def update(id):
             return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
+        print(e)
         if "404 Not Found" in str(e):
             return "404 Not Found", 404 
         else:
