@@ -39,5 +39,7 @@ class TribulationDTO(db.Model):
     
     def merge(self,newdata):
         for key,value in newdata.items():
-            if value:
+            
+            if key != "_sa_instance_state":
+                print('va: ',value)
                 setattr(self,key,value)

@@ -20,11 +20,11 @@ def dbCreate(new_tribulation):
     return -1
 
 def dbUpdate(id,data):
-    data = data.serialize()
     try: 
         tribulation_to_update = TribulationDTO.query.get_or_404(id)
-        tribulation_to_update.merge(data)
+        tribulation_to_update.merge(data.__dict__)
         db.session.commit()
+        print(tribulation_to_update.time_end)
         return True
     except Exception as e:
         db.session.rollback()
