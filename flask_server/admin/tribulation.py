@@ -136,6 +136,9 @@ def updateTool(id):
         print(tft.serialize())
         result = ToolForTribulationDAO.dbUpdate(tft)
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "add actor into tribulation", date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't update tool", 403
     except Exception as e:
@@ -154,10 +157,10 @@ def addActor(id):
         data = request.get_json()
         character = CharacterDTO(**data)
         character.tribulation_id = id
-       
         result = CharacterDAO.dbCreate(character)
         if result > 0:
-            log = LogDTO(user_id = 11, action = "add actor into tribulation", date_create = datetime.now())
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "add actor into tribulation", date_create = datetime.now())
             LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't add tool", 403
@@ -177,6 +180,9 @@ def removeActor(id):
         character = CharacterDTO(**data)
         character.tribulation_id = id
         if CharacterDAO.dbDelete(character):
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "add actor into tribulation", date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return "Remove Success", 200
         return "Can't remove tool", 403
     except Exception as e:
