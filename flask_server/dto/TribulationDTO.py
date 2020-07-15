@@ -22,13 +22,15 @@ class TribulationDTO(db.Model):
     def serialize(self):
         actor = [a.serialize() for a in self.actor]
         tool = [t.serialize() for t in self.tool]
+        time_start = self.time_start.strftime("%a %d %m %Y")
+        time_end = self.time_end.strftime("%a %d %m %Y")
         return {
             "tribulation_id": self.tribulation_id,
             "name": self.name,
             "description": self.description,
             "address": self.address,
-            "time_start": self.time_start,
-            "time_end": self.time_end,
+            "time_start": time_start,
+            "time_end": time_end,
             "times": self.times,
             "url_file": self.url_file,
             "actor": actor,
