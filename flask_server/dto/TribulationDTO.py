@@ -22,8 +22,8 @@ class TribulationDTO(db.Model):
     def serialize(self):
         actor = [a.serialize() for a in self.actor]
         tool = [t.serialize() for t in self.tool]
-        time_start = self.time_start.strftime("%a %d %m %Y")
-        time_end = self.time_end.strftime("%a %d %m %Y")
+        time_start = self.time_start.strftime("%d-%m-%Y")
+        time_end = self.time_end.strftime("%d-%m-%Y")
         return {
             "tribulation_id": self.tribulation_id,
             "name": self.name,

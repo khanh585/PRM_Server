@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, Blueprint, jsonify
 from datetime import datetime
 from flask_server import app
-
+import sys, traceback
 from flask_server.dao import TribulationDAO
 from flask_server.dao import ToolForTribulationDAO
 from flask_server.dao import CharacterDAO
@@ -34,7 +34,7 @@ def gettribulationById(id):
         else:
             return jsonify(tribulation), 200
     except Exception as e:
-        print(e)
+        traceback.print_exc(file=sys.stdout)
         return "Server error", 500
     
 @tribulation.route('/', methods=['POST'])
@@ -75,7 +75,7 @@ def update(id):
         result = TribulationDAO.dbUpdate(id,TribulationDTO(**data))
         if result > 0:
             return jsonify(result), 200
-        return "Can't delete", 403
+        return "Can't update", 403
     except Exception as e:
         print(e)
         if "404 Not Found" in str(e):
