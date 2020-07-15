@@ -22,13 +22,13 @@ def login():
         if not user:
             return "Don't have user", 401
         
-        payload = {
-            "email":email,
-            "role": user.role,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
-        }
-        token = jwt.encode(payload, secret_key, algorithm='HS256')
-        return jsonify({"Authorization":token.decode("UTF-8"), "UserID":user.actor_id}), 200
+        # payload = {
+        #     "email":email,
+        #     "role": user.role,
+        #     "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+        # }
+        # token = jwt.encode(payload, secret_key, algorithm='HS256')
+        return jsonify({"Role":user.role, "UserID":user.actor_id}), 200
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
     return "Server error internal", 500
