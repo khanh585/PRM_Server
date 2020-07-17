@@ -25,6 +25,16 @@ def gettribulation():
         print(e)
         return "Server error", 500
 
+@tribulation.route('/actor/<int:id>', methods=['GET'])
+def gettribulationByActorID(id):
+    try:
+        tribulations = [tribulation.serialize() for tribulation in TribulationDAO.dbGetByActorID(id)]
+        return jsonify(tribulations), 200 
+    except Exception as e:
+        print(e)
+        return "Server error", 500
+
+
 @tribulation.route('/<int:id>', methods=['GET'])
 def gettribulationById(id):
     try:

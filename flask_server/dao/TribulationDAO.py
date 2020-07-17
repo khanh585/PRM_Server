@@ -1,5 +1,7 @@
 from flask_server import db
 from flask_server.dto.TribulationDTO import TribulationDTO
+from flask_server.dto.ActorDTO import ActorDTO
+from flask_server.dto.CharacterDTO import CharacterDTO
 
 
 def dbRead():
@@ -7,6 +9,14 @@ def dbRead():
 
 def dbGet(tribulation_id):
     return TribulationDTO.query.get(tribulation_id)
+
+def dbGetByActorID(actor_id):
+    rs = db.session.query(TribulationDTO).join(CharacterDTO).filter(CharacterDTO.actor_id == actor_id).all()
+    for i in rs:
+        print(i)
+    print(rs)
+    return rs
+     
 
 def dbCreate(new_tribulation):
     try:
@@ -41,3 +51,7 @@ def dbDelete(id):
         db.session.rollback()
         raise e
     return -1
+
+
+
+
