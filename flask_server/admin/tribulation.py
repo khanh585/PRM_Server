@@ -94,7 +94,7 @@ def update(id):
             user_id = request.headers['UserID']
             log = LogDTO(user_id = user_id, action = "update tool into tribulation", date_create = datetime.now())
             LogDAO.dbCreate(log)
-            return jsonify(result+""), 200
+            return jsonify(result), 200
         return "Can't update", 403
     except Exception as e:
         print(e)
@@ -121,7 +121,7 @@ def addTool(id):
             user_id = request.headers['UserID']
             log = LogDTO(user_id = user_id, action = "add tool into tribulation", date_create = datetime.now())
             LogDAO.dbCreate(log)
-            return jsonify(result+""), 200
+            return jsonify(result), 200
         return "Can't add tool", 403
     except Exception as e:
         print(e)
@@ -166,7 +166,7 @@ def updateTool(id):
             user_id = request.headers['UserID']
             log = LogDTO(user_id = user_id, action = "add actor into tribulation", date_create = datetime.now())
             LogDAO.dbCreate(log)
-            return jsonify(result+""), 200
+            return jsonify(result), 200
         return "Can't update tool", 403
     except Exception as e:
         print(e)
