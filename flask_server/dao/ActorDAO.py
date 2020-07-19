@@ -7,7 +7,7 @@ def dbRead():
     return ActorDTO.query.filter(ActorDTO.is_deleted == False).order_by(ActorDTO.name).all()
 
 def dbGetByTribulationID(tribulation_id):
-    return db.query(ActorDTO).join(CharacterDTO).filter(ActorDTO.is_deleted == False, CharacterDTO.tribulation_id == tribulation_id).all()
+    return db.session.query(ActorDTO).join(CharacterDTO).filter(ActorDTO.is_deleted == False, CharacterDTO.tribulation_id == tribulation_id).all()
 
 
 def dbGet(actor_id):

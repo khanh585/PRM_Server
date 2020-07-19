@@ -6,7 +6,7 @@ def dbRead():
     return ToolDTO.query.filter(ToolDTO.is_deleted == False).order_by(ToolDTO.tool_id).all()
 
 def dbGetByTribulationID(tribulation_id):
-    return db.query(ToolDTO).join(ToolForTribulationDTO).filter(ToolDTO.is_deleted == False, ToolForTribulationDTO.tribulation_id == tribulation_id).all()
+    return db.session.query(ToolDTO).join(ToolForTribulationDTO).filter(ToolDTO.is_deleted == False, ToolForTribulationDTO.tribulation_id == tribulation_id).all()
 
 def dbGet(tool_id):
     return ToolDTO.query.get(tool_id)
