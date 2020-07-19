@@ -1,6 +1,5 @@
 from flask_server import db
 from flask_server.dto.CharacterDTO import CharacterDTO
-from flask_server.dto.PersonaDTO import PersonaDTO
 
 class ActorDTO(db.Model):
     __tablename__ = 'actor'
@@ -13,10 +12,8 @@ class ActorDTO(db.Model):
     password = db.Column(db.String(20) ,nullable = False, default = '123')
     role = db.Column(db.String(5), nullable = False, default = 'actor')
     is_deleted = db.Column(db.Boolean(), default = False)
-    persona = db.relationship(PersonaDTO,  secondary='character')
     
     def serialize(self):
-        persona = [p.serialize() for p in self.persona]
         return {
             "actor_id": self.actor_id,
             "name": self.name,
@@ -25,7 +22,6 @@ class ActorDTO(db.Model):
             "phone": self.phone,
             "email": self.email,
             "role": self.role,
-            "persona": persona
         }
     
     def merge(self,newdata):
