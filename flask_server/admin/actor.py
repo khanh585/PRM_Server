@@ -91,7 +91,7 @@ def update(id):
         if result > 0:
             user_id = request.headers['UserID']
             print('in if')
-            log = LogDTO(user_id = user_id, action = "update actor id: " + id, date_create = datetime.now())
+            log = LogDTO(user_id = user_id, action = "update actor id: " + str(id), date_create = datetime.now())
             print('after log')
             LogDAO.dbCreate(log)
             print('after add log')
