@@ -56,6 +56,9 @@ def create():
         new_tribulation = TribulationDTO(**data)
         result = TribulationDAO.dbCreate(new_tribulation)
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "create tribulation", date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 201
         return "Can't create", 403
     except Exception as e:
@@ -67,6 +70,9 @@ def delete(id):
     try:
         result = TribulationDAO.dbDelete(id)
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "delete tribulation" + id, date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
@@ -85,6 +91,9 @@ def update(id):
         result = TribulationDAO.dbUpdate(id,TribulationDTO(**data))
 
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "update tool into tribulation", date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't update", 403
     except Exception as e:
@@ -109,6 +118,9 @@ def addTool(id):
         tft.time_end = tribulation.time_end
         result = ToolForTribulationDAO.dbCreate(tft)
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "add tool into tribulation", date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't add tool", 403
     except Exception as e:
@@ -126,6 +138,9 @@ def removeTool(id):
         data = request.get_json()
         tool_id = int(data["tool_id"])
         if ToolForTribulationDAO.dbDelete(tool_id,id):
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "remove tool into tribulation", date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return "Remove Success", 200
         return "Can't remove tool", 403
     except Exception as e:
@@ -146,7 +161,6 @@ def updateTool(id):
         tft.tribulation_id = id
         tft.time_start = tribulation.time_start
         tft.time_end = tribulation.time_end
-        print(tft.serialize())
         result = ToolForTribulationDAO.dbUpdate(tft)
         if result > 0:
             user_id = request.headers['UserID']
@@ -194,7 +208,7 @@ def removeActor(id):
         character.tribulation_id = id
         if CharacterDAO.dbDelete(character):
             user_id = request.headers['UserID']
-            log = LogDTO(user_id = user_id, action = "add actor into tribulation", date_create = datetime.now())
+            log = LogDTO(user_id = user_id, action = "remove actor into tribulation", date_create = datetime.now())
             LogDAO.dbCreate(log)
             return "Remove Success", 200
         return "Can't remove tool", 403

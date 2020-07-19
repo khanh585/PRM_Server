@@ -7,7 +7,7 @@ class LogDTO(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('actor.actor_id'), primary_key = True)
     date_create = db.Column(db.DateTime,default = datetime.utcnow, primary_key = True)
     action = db.Column(db.String(100), nullable = True)
-    # user = db.relationship(ActorDTO)
+    user = db.relationship(ActorDTO)
 
     def serialize(self):
         return {

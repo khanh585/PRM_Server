@@ -4,6 +4,11 @@ from flask_server import app
 from flask_server.dao import ActorDAO
 from flask_server.dto.ActorDTO import ActorDTO
 
+from flask_server.dto.LogDTO import LogDTO
+from flask_server.dao import LogDAO
+from datetime import datetime
+
+
 
 actor = Blueprint('actor', __name__, url_prefix='/admin/actor')
 
@@ -49,6 +54,9 @@ def create():
         new_actor = ActorDTO(**data)
         result = ActorDAO.dbCreate(new_actor)
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "create actor " , date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 201
         return "Can't create", 403
     except Exception as e:
@@ -60,7 +68,11 @@ def delete(id):
     try:
         result = ActorDAO.dbDelete(id)
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "delete actor id: " + id, date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 200
+            
         return "Can't delete", 403
     except Exception as e:
         print(e)
@@ -77,6 +89,9 @@ def update(id):
         data = request.get_json()
         result = ActorDAO.dbUpdate(id,ActorDTO(**data))
         if result > 0:
+            user_id = request.headers['UserID']
+            log = LogDTO(user_id = user_id, action = "update actor id: " + id, date_create = datetime.now())
+            LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:

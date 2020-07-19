@@ -21,11 +21,13 @@ db = SQLAlchemy(app)
 
 
 from flask_server.admin.route import todo
+from flask_server.admin.log import log
 from flask_server.admin.tool import tool
 from flask_server.admin.actor import actor
 from flask_server.admin.tribulation import tribulation
 from flask_server.util.authentication import authentication
 app.register_blueprint(todo)
+app.register_blueprint(log)
 app.register_blueprint(tool)
 app.register_blueprint(actor)
 app.register_blueprint(tribulation)
