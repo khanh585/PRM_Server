@@ -118,7 +118,7 @@ def addTool(id):
         else:
             return "Server error", 500 
 
-@tribulation.route('/<int:id>/remove-tool',methods=['DELETE'])
+@tribulation.route('/<int:id>/remove-tool',methods=['PUT'])
 def removeTool(id):
     if not request.is_json:
         return "Bad Request", 403
@@ -184,7 +184,7 @@ def addActor(id):
         else:
             return "Server error", 500 
 
-@tribulation.route('/<int:id>/remove-actor',methods=['DELETE'])
+@tribulation.route('/<int:id>/remove-actor',methods=['PUT'])
 def removeActor(id):
     if not request.is_json:
         return "Bad Request", 403

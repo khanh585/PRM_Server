@@ -8,7 +8,6 @@ from flask_server.dao import ToolDAO
 
 def enoughQuantity(tool_id, tribulation_id, quantity):
     tribulation = TribulationDAO.dbGet(tribulation_id)
-    print(tribulation)
     tool_quantity = ToolDAO.dbGet(tool_id).quantity
     result = False
     try:
