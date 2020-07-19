@@ -12,9 +12,6 @@ def dbGet(tribulation_id):
 
 def dbGetByActorID(actor_id):
     rs = db.session.query(TribulationDTO).join(CharacterDTO).filter(CharacterDTO.actor_id == actor_id).all()
-    for i in rs:
-        print(i)
-    print(rs)
     return rs
      
 

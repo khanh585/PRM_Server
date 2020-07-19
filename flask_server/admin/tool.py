@@ -24,6 +24,7 @@ def getTool():
     except Exception as e:
         print(e)
         return "Server error", 500
+
     
 
 @tool.route('/<int:id>', methods=['GET'])

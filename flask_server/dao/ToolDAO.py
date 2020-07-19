@@ -1,6 +1,6 @@
 from flask_server import db
 from flask_server.dto.ToolDTO import ToolDTO
-
+from flask_server.dto.ToolForTribulationDTO import ToolForTribulationDTO
 
 def dbRead():
     return ToolDTO.query.filter(ToolDTO.is_deleted == False).order_by(ToolDTO.tool_id).all()
@@ -41,3 +41,4 @@ def dbDelete(id):
         db.session.rollback()
         raise e
     return -1
+

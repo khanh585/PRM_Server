@@ -102,6 +102,7 @@ def addTool(id):
     try:
         data = request.get_json()
         tft = ToolForTribulationDTO(**data)
+        tft.quantity = int(tft.quantity)
         tribulation = TribulationDAO.dbGet(id)
         tft.tribulation_id = id
         tft.time_start = tribulation.time_start
