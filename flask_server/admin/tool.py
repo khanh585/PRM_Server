@@ -86,7 +86,7 @@ def delete(id):
         result = ToolDAO.dbDelete(id)
         if result > 0:
             user_id = request.headers['UserID']
-            log = LogDTO(user_id = user_id, action = "delete tool id: " + id, date_create = datetime.now())
+            log = LogDTO(user_id = user_id, action = "delete tool id: " + str(id), date_create = datetime.now())
             LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't delete", 403
@@ -106,7 +106,7 @@ def update(id):
         result = ToolDAO.dbUpdate(id,ToolDTO(**data))
         if result > 0:
             user_id = request.headers['UserID']
-            log = LogDTO(user_id = user_id, action = "update tool tool id:" + id, date_create = datetime.now())
+            log = LogDTO(user_id = user_id, action = "update tool tool id:" + str(id), date_create = datetime.now())
             LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't delete", 403

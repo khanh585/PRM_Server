@@ -71,7 +71,7 @@ def delete(id):
         result = TribulationDAO.dbDelete(id)
         if result > 0:
             user_id = request.headers['UserID']
-            log = LogDTO(user_id = user_id, action = "delete tribulation" + id, date_create = datetime.now())
+            log = LogDTO(user_id = user_id, action = "delete tribulation" + str(id), date_create = datetime.now())
             LogDAO.dbCreate(log)
             return jsonify(result), 200
         return "Can't delete", 403
