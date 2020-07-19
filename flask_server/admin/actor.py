@@ -18,6 +18,16 @@ def getactor():
         print(e)
         return "Server error", 500
 
+@actor.route('/tribulation/<int:id>', methods=['GET'])
+def getActorByTribulationID(id):
+    try:
+        result = None
+        result = [actor.serialize() for actor in ActorDAO.dbGetByTribulationID(id)]
+        return jsonify(result), 200 
+    except Exception as e:
+        print(e)
+        return "Server error", 500
+
 @actor.route('/<int:id>', methods=['GET'])
 def getactorById(id):
     try:
