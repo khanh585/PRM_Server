@@ -90,13 +90,18 @@ def update(id):
         result = ActorDAO.dbUpdate(id,ActorDTO(**data))
         if result > 0:
             user_id = request.headers['UserID']
+            print('in if')
             log = LogDTO(user_id = user_id, action = "update actor id: " + id, date_create = datetime.now())
+            print('after log')
             LogDAO.dbCreate(log)
+            print('after add log')
             return jsonify(result+""), 200
         return "Can't delete", 403
     except Exception as e:
         print(e)
+        print('exct')
         if "404 Not Found" in str(e):
             return "404 Not Found", 404 
         else:
+            print('in else')
             return "Server error", 500 
