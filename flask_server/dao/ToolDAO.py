@@ -2,6 +2,11 @@ from flask_server import db
 from flask_server.dto.ToolDTO import ToolDTO
 from flask_server.dto.ToolForTribulationDTO import ToolForTribulationDTO
 
+def dbSearch(start, end, status):
+    status = "%{}%".format(status)
+    print(start, end,status)
+    return db.session.query(ToolDTO).join(ToolForTribulationDTO).filter(ToolDTO.status.like(status),ToolForTribulationDTO.time_start >= start,ToolForTribulationDTO.time_end <= end,ToolDTO.is_deleted == False).order_by(ToolDTO.tool_id).all()
+
 def dbRead():
     return ToolDTO.query.filter(ToolDTO.is_deleted == False).order_by(ToolDTO.tool_id).all()
 

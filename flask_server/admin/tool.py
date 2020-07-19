@@ -25,6 +25,19 @@ def getTool():
         print(e)
         return "Server error", 500
 
+@tool.route('/search', methods=['GET'])
+def searchTool():
+    try:
+        start = request.args.get('start')
+        end = request.args.get('end')
+        status = request.args.get('status')
+        result = None
+        result = [tool.serialize() for tool in ToolDAO.dbSearch(start,end,status)]
+        return jsonify(result), 200 
+    except Exception as e:
+        print(e)
+        return "Server error", 500
+
 
 @tool.route('/tribulation/<int:id>', methods=['GET'])
 def getToolByTribulationID(id):
