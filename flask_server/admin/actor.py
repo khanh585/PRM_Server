@@ -95,7 +95,7 @@ def update(id):
             print('after log')
             LogDAO.dbCreate(log)
             print('after add log')
-            return jsonify(result+""), 200
+            return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
         print(e)

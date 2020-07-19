@@ -108,7 +108,7 @@ def update(id):
             user_id = request.headers['UserID']
             log = LogDTO(user_id = user_id, action = "update tool tool id:" + id, date_create = datetime.now())
             LogDAO.dbCreate(log)
-            return jsonify(result+""), 200
+            return jsonify(result), 200
         return "Can't delete", 403
     except Exception as e:
         if "404 Not Found" in str(e):
